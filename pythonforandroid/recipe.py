@@ -133,7 +133,7 @@ class Recipe(with_metaclass(RecipeMeta)):
             target = join(cwd, target)
 
         parsed_url = urlparse(url)
-        if parsed_url.scheme in ('http', 'https'):
+        if parsed_url.scheme in ('http', 'https', 'file'):
             def report_hook(index, blksize, size):
                 if size <= 0:
                     progression = '{0} bytes'.format(index * blksize)

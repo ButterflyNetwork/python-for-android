@@ -7,8 +7,8 @@ from os.path import exists, join
 import sh
 
 prebuilt_download_locations = {
-    '3.6': ('https://github.com/inclement/crystax_python_builds/'
-            'releases/download/0.1/crystax_python_3.6_armeabi_armeabi-v7a.tar.gz')}
+    '3.6': 'file:///Users/jgavris/Downloads/3.6.tar.gz',
+}
 
 
 class Python3Recipe(TargetPythonRecipe):
@@ -35,13 +35,14 @@ class Python3Recipe(TargetPythonRecipe):
         # NDK, we do have to download it.
 
         crystax_python_dir = join(self.ctx.ndk_dir, 'sources', 'python')
-        if not exists(join(crystax_python_dir, self.version)):
-            info(('The NDK does not have a prebuilt Python {}, trying '
-                  'to obtain one.').format(self.version))
+        python_libs_dir = join(crystax_python_dir, self.version, 'libs', arch.arch)
+        if not exists(python_libs_dir):
+            info(('The NDK does not have a prebuilt Python {} {}, trying '
+                  'to obtain one.').format(self.version, arch.arch))
 
             if self.version not in prebuilt_download_locations:
                 error(('No prebuilt version for Python {} could be found, '
-                       'the built cannot continue.'))
+                       'the built cannot continue.').format(self.version))
                 exit(1)
 
             with temp_directory() as td:
@@ -55,8 +56,7 @@ class Python3Recipe(TargetPythonRecipe):
                        'have been created but does not exist.').format(
                            join(crystax_python_dir, self.version)))
 
-        if not exists(join(
-                crystax_python_dir, self.version, 'libs', arch.arch)):
+        if not exists(python_libs_dir):
             error(('The prebuilt Python for version {} does not contain '
                    'binaries for your chosen architecture "{}".').format(
                        self.version, arch.arch))
