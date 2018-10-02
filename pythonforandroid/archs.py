@@ -128,7 +128,7 @@ class Arch(object):
         # This hardcodes python version 2.7, needs fixing
         env['BUILDLIB_PATH'] = join(
             hostpython_recipe.get_build_dir(self.arch),
-            'build', 'lib.linux-{}-2.7'.format(uname()[-1]))
+            'build', 'lib.linux-{}-3.6'.format(uname()[-1]))
 
         env['PATH'] = environ['PATH']
 

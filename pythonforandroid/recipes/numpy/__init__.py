@@ -38,6 +38,7 @@ class NumpyRecipe(CompiledComponentsPythonRecipe):
             flags += ' -L{} -lpython{}m'.format(py_lib_dir, py_ver)
             flags += " -I{}".format(cry_inc_dir)
             flags += " -L{}".format(cry_lib_dir)
+            flags += " -lz"
 
         if flags not in env['CC']:
             env['CC'] += flags

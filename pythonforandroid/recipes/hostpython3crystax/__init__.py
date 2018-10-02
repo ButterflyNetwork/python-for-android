@@ -33,7 +33,7 @@ class Hostpython3Recipe(Recipe):
         sub_build_dir = join(self.get_build_dir(), 'build')
         shprint(sh.mkdir, '-p', sub_build_dir)
         python3crystax = self.get_recipe('python3crystax', self.ctx)
-        system_python = sh.which("python" + python3crystax.version)
+        system_python = sh.which("python")
         if system_python is None:
             raise OSError(
                 ('Trying to use python3crystax=={} but this Python version '

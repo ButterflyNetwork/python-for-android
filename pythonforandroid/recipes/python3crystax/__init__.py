@@ -71,7 +71,7 @@ class Python3Recipe(TargetPythonRecipe):
         # Instead of using a locally built hostpython, we use the
         # user's Python for now. They must have the right version
         # available. Using e.g. pyenv makes this easy.
-        self.ctx.hostpython = 'python{}'.format(self.version)
+        self.ctx.hostpython = 'python'
 
 
 recipe = Python3Recipe()
