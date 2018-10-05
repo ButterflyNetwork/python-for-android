@@ -46,11 +46,5 @@ class NumpyRecipe(CompiledComponentsPythonRecipe):
             env['LD'] += flags + ' -shared'
         return env
 
-    def prebuild_arch(self, arch):
-        super(NumpyRecipe, self).prebuild_arch(arch)
-
-        warning('Numpy is built assuming the archiver name is '
-                'arm-linux-androideabi-ar, which may not always be true!')
-
 
 recipe = NumpyRecipe()
