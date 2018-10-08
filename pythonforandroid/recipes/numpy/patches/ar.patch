@@ -42,3 +42,12 @@ index 11b2cce..f6dde79 100644
              display = '%s: adding %d object files to %s' % (
                             os.path.basename(self.archiver[0]),
                             len(objects), output_filename)
+@@ -122,6 +121,8 @@ def UnixCCompiler_create_static_lib(self, objects, output_libname,
+         # platform intelligence here to skip ranlib if it's not
+         # needed -- or maybe Python's configure script took care of
+         # it for us, hence the check for leading colon.
++        self.ranlib = [os.environ.get("RANLIB")]
++
+         if self.ranlib:
+             display = '%s:@ %s' % (os.path.basename(self.ranlib[0]),
+                                    output_filename)
