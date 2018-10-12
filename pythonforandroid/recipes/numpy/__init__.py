@@ -16,7 +16,8 @@ class NumpyRecipe(CompiledComponentsPythonRecipe):
         join('patches', 'prevent_libs_check.patch'),
         join('patches', 'ar.patch'),
         join('patches', 'lib.patch'),
-        join('patches', 'python2-fixes.patch')
+        join('patches', 'python2-fixes.patch'),
+        # join('patches', 'wtf.patch'),
     ]
 
     def get_recipe_env(self, arch):
@@ -39,11 +40,22 @@ class NumpyRecipe(CompiledComponentsPythonRecipe):
             flags += " -I{}".format(cry_inc_dir)
             flags += " -L{}".format(cry_lib_dir)
             flags += " -lz"
+            # flags += " -lgcc"  # nope (doesn't compile)
+
+        # env['CC'] += ' -lgcc'  # nope
+        # env['CC'] += ' -Wl,-whole-archive -lgcc -Wl,-no-whole-archive' # nope
+
+        env['LD'] = env['CC']
 
         if flags not in env['CC']:
             env['CC'] += flags
+            # env['CC'] += flags + ' -lgcc'  # nope
+            # env['CC'] += flags + ' -lgcc -static-libgcc'  # nope
         if flags not in env['LD']:
             env['LD'] += flags + ' -shared'
+            # env['LD'] += flags + ' -shared -lgcc'  # nope (doesn't compile)
+            # env['LD'] += flags + ' -shared -L/Users/lng/Downloads/crystax-ndk-10.3.2/toolchains/aarch64-linux-android-5/prebuilt/darwin-x86_64/lib/gcc/aarch64-linux-android/5.3/ -lgcc'  # nope
+            # env['LD'] += flags + ' -shared -L/Users/lng/Downloads/crystax-ndk-10.3.2/toolchains/aarch64-linux-android-5/prebuilt/darwin-x86_64/lib/gcc/aarch64-linux-android/5.3/ -whole-archive -lgcc -no-whole-archive'  # nope
         return env
 
 

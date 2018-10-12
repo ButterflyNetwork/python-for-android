@@ -3,11 +3,11 @@ from pythonforandroid.recipe import TargetPythonRecipe
 from pythonforandroid.toolchain import shprint
 from pythonforandroid.logger import info, error
 from pythonforandroid.util import ensure_dir, temp_directory
-from os.path import exists, join
+from os.path import exists, join, expanduser
 import sh
 
 prebuilt_download_locations = {
-    '3.6': 'file:///Users/jgavris/Downloads/3.6.tar.gz',
+    '3.6': "file://%s/Downloads/3.6.tar.gz" % expanduser("~"),
 }
 
 
@@ -42,7 +42,7 @@ class Python3Recipe(TargetPythonRecipe):
 
             if self.version not in prebuilt_download_locations:
                 error(('No prebuilt version for Python {} could be found, '
-                       'the built cannot continue.').format(self.version))
+                       'the build cannot continue.').format(self.version))
                 exit(1)
 
             with temp_directory() as td:
