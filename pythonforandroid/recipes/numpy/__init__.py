@@ -5,7 +5,7 @@ from os.path import join
 
 class NumpyRecipe(CompiledComponentsPythonRecipe):
 
-    version = '1.15.1'
+    version = '1.17.4'
     url = 'https://pypi.python.org/packages/source/n/numpy/numpy-{version}.zip'
     site_packages_name = 'numpy'
 
