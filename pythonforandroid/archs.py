@@ -34,7 +34,7 @@ class Arch(object):
         env = {}
 
         env['CFLAGS'] = ' '.join([
-            '-DANDROID', '-mandroid', '-fomit-frame-pointer'
+            '-DANDROID', '-mandroid', '-fno-omit-frame-pointer', '-g',
             ' -D__ANDROID_API__={}'.format(self.ctx._android_api),
            ])
         env['LDFLAGS'] = ' '

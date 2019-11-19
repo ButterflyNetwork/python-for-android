@@ -429,7 +429,7 @@ class Context(object):
                 toolchain_version=toolchain_version,
                 py_platform=py_platform, path=environ.get('PATH'))
 
-        for executable in ("pkg-config", "autoconf", "automake", "libtoolize",
+        for executable in ("pkg-config", "autoconf", "automake",
                            "tar", "bzip2", "unzip", "make", "gcc", "g++"):
             if not sh.which(executable):
                 warning("Missing executable: {} is not installed".format(
